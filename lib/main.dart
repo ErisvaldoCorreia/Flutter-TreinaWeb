@@ -1,114 +1,121 @@
-/**
-Código escrito por Erisvaldo Correia
-Treinamento Básico em Flutter - 2020
-Curso - Flutter Fundamentos TreinaWeb
-*/
+///
+/// Código escrito por Erisvaldo Correia
+/// Treinamento Básico em Flutter - 2020
+/// Curso - Flutter Fundamentos TreinaWeb
+///
 
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(new MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: 'Calculus Treinaweb',
-    home: FlutterTreinaweb(),
-  ));
-}
+/// Inicialização do Aplicativo.
+void main() => runApp(FlutterTreinawebApp());
 
-/// Criação da classe estática com Flutter e Dart
-class FlutterTreinaweb extends StatelessWidget {
-
-  double numero1 = 0.0;
-  double numero2 = 0.0;
+/// Classe principal da Aplicação
+class FlutterTreinawebApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    /// Construção do Primeiro Input
-    TextField primeiroInput = new TextField(
-      decoration: InputDecoration(
-        labelText: 'Primeiro Numero'
+    return MaterialApp(
+      title: "Flutter TreinaWeb",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
       ),
-      keyboardType: TextInputType.number,
-      onChanged: (valor) {
-        try {
-          numero1 = double.parse(valor);
-        } catch (ex){
-          numero1 = 0.0;
-        }
-      },
+      home: HomePage(),
     );
+  }
 
-    /// Construção do Segundo Input
-    TextField segundoInput = new TextField(
-      decoration: InputDecoration(
-        labelText: 'Segundo Numero'
-      ),
-      keyboardType: TextInputType.number,
-      onChanged: (valor) {
-        try {
-          numero2 = double.parse(valor);
-        } catch (ex) {
-          numero2 = 0.0;
-        }
-      },
-    );
+}
 
-    /// Botão para exibir os calculos necessários
-    RaisedButton calculus = new RaisedButton(
-      color: Colors.orange,
-      child: Text('Calcular',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-        ),
-      ),
-      onPressed: (){
-        double add = numero1 + numero2;
-        double sub = numero1 - numero2;
-        double div = numero1 / numero2;
-        double mult = numero1 * numero2;
-        AlertDialog resultado = new AlertDialog(
-          title: Text('Resultados'),
-          content: Text(
-              "Adição = $add \n\n"
-                  "Subtração = $sub \n\n"
-                  "Divisão = $div \n\n"
-                  "Multiplicação = $mult \n\n"
-          ),
-        );
-        showDialog(
-            context: context,
-            child: resultado,
-        );
-      },
-    );
+/// Classe da Página Home
+class HomePage extends StatelessWidget {
 
-    /// Criando o Container hierarquico da aplicação
-    Container meuContainer = new Container(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        children: <Widget>[
-          primeiroInput,
-          segundoInput,
-          calculus,
+  double num1 = 0.0;
+  double num2 = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('CALCULUS'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.clear_all),
+            onPressed: () {
+              showDialog(
+                context: context,
+                child: AlertDialog(
+                  title: Text('Calculus'),
+                  content: Text(
+                    'Aplicação Codificada por Erisvaldo Correia em 2020'
+                        ' no treinamento realizado pela TreinaWeb'
+                  ),
+                ),
+              );
+            },
+          )
         ],
       ),
-    );
-
-    AppBar appbar = new AppBar(
-      title: Text('Calculus',
-        style: TextStyle(color: Colors.black),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Prineiro Numero',
+                labelStyle: TextStyle(fontSize: 22),
+              ),
+              keyboardType: TextInputType.number,
+              onChanged: (valor) {
+                try {
+                  num1 = double.parse(valor);
+                } catch (ex) {
+                  num1 = 0.0;
+                }
+              },
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Prineiro Numero',
+                labelStyle: TextStyle(fontSize: 22),
+              ),
+              keyboardType: TextInputType.number,
+              onChanged: (valor) {
+                try {
+                  num2 = double.parse(valor);
+                } catch (ex) {
+                  num2 = 0.0;
+                }
+              },
+            ),
+            RaisedButton(
+              child: Text(
+                  'Calcular', style: TextStyle(fontSize: 20),
+              ),
+              color: Colors.green,
+              padding: EdgeInsets.all(15.0),
+              onPressed: (){
+                double add = num1 + num2;
+                double sub = num1 - num2;
+                double div = num1 / num2;
+                double mult = num1 * num2;
+                showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    title: Text('Resultados'),
+                    content: Text(
+                      "Adição = $add \n"
+                          "Subtração = $sub \n"
+                          "Divisão = $div \n"
+                          "Multiplicação = $mult \n"
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-      backgroundColor: Colors.orange,
     );
-
-    Scaffold scaffold = new Scaffold(
-      appBar: appbar,
-      body: meuContainer,
-    );
-
-    return scaffold;
-
   }
 
 }
